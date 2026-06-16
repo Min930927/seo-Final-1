@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>優雅女鞋區 | SoleStyle 鞋履工坊</title>
+  <meta name="description" content="瀏覽 SoleStyle 經典女鞋系列，包含精緻細高跟鞋、輕量透氣針織平底鞋、真皮粗跟短靴及潮流增高老爹鞋。為您點綴每一刻的美麗。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Global Navigation Header -->
+  <header id="global-header"></header>
+
+  <!-- Category Header -->
+  <section class="hero" style="padding: 4.5rem 1.5rem;">
+    <div class="hero-container" style="grid-template-columns: 1fr; text-align: center; max-width: 800px;">
+      <div class="hero-content" style="align-items: center; gap: 0.75rem;">
+        <span class="hero-tagline">Women's Collection</span>
+        <h1 class="hero-title" style="font-size: 2.75rem;">優雅女鞋系列</h1>
+        <p class="hero-description" style="margin: 0 auto; max-width: 600px;">
+          點綴優雅，隨心漫步。從宴會禮鞋、都會通勤平底鞋到街頭運動老爹鞋，融合頂級舒適感，陪伴您展現獨特自信魅力。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Grid Container -->
+  <main class="container">
+    <div class="product-grid" id="womens-products-grid">
+      <!-- JavaScript will load and render Women's shoes here -->
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer id="global-footer"></footer>
+
+  <!-- Global Cart Drawer Container -->
+  <div id="global-cart-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render women's products using the shared utility function in main.js
+      if (typeof renderProductGrid === 'function') {
+        renderProductGrid('womens-products-grid', 'womens');
+      }
+    });
+  </script>
+</body>
+</html>

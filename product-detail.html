@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>產品詳情 | SoleStyle 鞋履工坊</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Global Navigation Header -->
+  <header id="global-header"></header>
+
+  <!-- Product Detail Container -->
+  <main class="container" id="detail-page-container">
+    <!-- Dynamic loading state / error template -->
+    <div id="loading-view" style="text-align: center; padding: 5rem 0;">
+      <div style="font-size: 1.5rem; color: var(--text-muted-dark);">載入商品資訊中...</div>
+    </div>
+
+    <!-- Product Layout (will be rendered by JS) -->
+    <div id="product-view" class="detail-grid" style="display: none;">
+      <!-- Product Gallery / Left -->
+      <div class="detail-gallery">
+        <div class="detail-img-container">
+          <img id="main-product-img" src="" alt="Product Image" class="detail-main-img">
+        </div>
+      </div>
+
+      <!-- Product Info / Right -->
+      <div class="detail-info">
+        <div class="detail-header">
+          <span class="detail-category" id="prod-category">分類</span>
+          <h1 class="detail-title" id="prod-name">商品名稱</h1>
+          <div class="product-rating" style="margin-top: 0.5rem;">
+            <span style="font-size: 1.25rem;">★</span>
+            <span style="font-weight: 600; font-size: 1.1rem;" id="prod-rating">4.8</span>
+            <span class="product-rating-count" id="prod-reviews-count">(0 評價)</span>
+          </div>
+        </div>
+
+        <div class="detail-price" id="prod-price">0</div>
+
+        <p class="detail-desc" id="prod-desc">
+          產品詳細描述
+        </p>
+
+        <!-- Product Options -->
+        <div class="detail-options">
+          <!-- Size Selector -->
+          <div class="option-group">
+            <span class="option-title">選擇尺寸</span>
+            <div class="size-selector" id="prod-sizes">
+              <!-- JS will fill sizing buttons -->
+            </div>
+          </div>
+
+          <!-- Quantity Selector -->
+          <div class="option-group">
+            <span class="option-title">購買數量</span>
+            <div class="qty-input-wrapper">
+              <button class="qty-btn" id="qty-minus" aria-label="減少數量">-</button>
+              <div class="qty-val" id="qty-val">1</div>
+              <button class="qty-btn" id="qty-plus" aria-label="增加數量">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add to Cart CTA -->
+        <div class="detail-actions">
+          <button class="btn btn-primary" id="add-to-cart-btn" style="flex-grow: 1; padding: 1rem 2rem;">
+            加入購物車
+          </button>
+        </div>
+
+        <!-- Specifications Bullet points -->
+        <div class="option-group" style="margin-top: 1rem;">
+          <span class="option-title" style="border-bottom: 1px solid var(--border-dark); padding-bottom: 0.5rem; margin-bottom: 0.5rem;">產品特色與規格</span>
+          <div class="detail-specs" id="prod-specs">
+            <!-- Bullet points dynamically loaded -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Related Products Section -->
+  <section class="container" id="related-section" style="border-top: 1px solid var(--border-dark); padding-top: 4rem; display: none;">
+    <div class="section-header" style="margin-bottom: 2.5rem;">
+      <span class="section-subtitle">您可能也喜歡</span>
+      <h2 class="section-title">相關推薦商品</h2>
+    </div>
+    <div class="product-grid" id="related-products-grid">
+      <!-- Related products -->
+    </div>
+  </section>
+
+  <!-- Global Footer -->
+  <footer id="global-footer"></footer>
+
+  <!-- Global Cart Drawer Container -->
+  <div id="global-cart-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  
+  <script>
+    let selectedSize = null;
+    let selectedQty = 1;
+    let currentProduct = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Parse Query string (e.g. ?id=men_1)
+      const params = new URLSearchParams(window.location.search);
+      const productId = params.get('id');
+
+      if (!productId || typeof products === 'undefined') {
+        renderError('無效的商品路徑，請返回商城選購。');
+        return;
+      }
+
+      currentProduct = products.find(p => p.id === productId);
+
+      if (!currentProduct) {
+        renderError('找不到該商品，它可能已下架或移至其它分類。');
+        return;
+      }
+
+      // Render product details
+      renderProductDetails(currentProduct);
+      
+      // Render related products
+      renderRelatedProducts(currentProduct);
+    });
+
+    function renderProductDetails(product) {
+      // Update Page title
+      document.title = `${product.name} | SoleStyle 鞋履工坊`;
+
+      // Hide loading, show content
+      document.getElementById('loading-view').style.display = 'none';
+      const prodView = document.getElementById('product-view');
+      prodView.style.display = 'grid';
+
+      // Load fields
+      document.getElementById('main-product-img').src = product.image;
+      document.getElementById('main-product-img').alt = product.name;
+      document.getElementById('prod-category').textContent = product.categoryLabel;
+      document.getElementById('prod-name').textContent = product.name;
+      document.getElementById('prod-rating').textContent = product.rating;
+      document.getElementById('prod-reviews-count').textContent = `(${product.reviewsCount} 評價)`;
+      document.getElementById('prod-price').textContent = product.price.toLocaleString();
+      document.getElementById('prod-desc').textContent = product.description;
+
+      // Load sizes buttons
+      const sizeContainer = document.getElementById('prod-sizes');
+      sizeContainer.innerHTML = '';
+      product.sizes.forEach(size => {
+        const btn = document.createElement('button');
+        btn.className = 'size-btn';
+        btn.textContent = size;
+        btn.addEventListener('click', () => {
+          // Toggle selection
+          document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedSize = size;
+        });
+        sizeContainer.appendChild(btn);
+      });
+
+      // Quantities listeners
+      const qtyVal = document.getElementById('qty-val');
+      document.getElementById('qty-minus').addEventListener('click', () => {
+        if (selectedQty > 1) {
+          selectedQty--;
+          qtyVal.textContent = selectedQty;
+        }
+      });
+      document.getElementById('qty-plus').addEventListener('click', () => {
+        selectedQty++;
+        qtyVal.textContent = selectedQty;
+      });
+
+      // Specifications
+      const specsContainer = document.getElementById('prod-specs');
+      specsContainer.innerHTML = '';
+      product.details.forEach(detail => {
+        const item = document.createElement('div');
+        item.className = 'spec-item';
+        item.textContent = detail;
+        specsContainer.appendChild(item);
+      });
+
+      // Add to Cart Button Listener
+      document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+        if (!selectedSize) {
+          showToast('請先選擇合適的尺寸！');
+          return;
+        }
+        if (typeof window.addToCart === 'function') {
+          window.addToCart(product.id, selectedSize, selectedQty);
+        }
+      });
+    }
+
+    function renderRelatedProducts(product) {
+      const relatedSection = document.getElementById('related-section');
+      const relatedGrid = document.getElementById('related-products-grid');
+      
+      if (!relatedSection || !relatedGrid || typeof products === 'undefined') return;
+
+      // Find items in same category, exclude current item
+      const relatedList = products
+        .filter(p => p.category === product.category && p.id !== product.id)
+        .slice(0, 4); // Display up to 4 items
+
+      if (relatedList.length === 0) return;
+
+      relatedSection.style.display = 'block';
+      
+      let html = '';
+      relatedList.forEach(p => {
+        html += `
+          <article class="product-card">
+            <div class="product-image-wrapper">
+              <a href="product-detail.html?id=${p.id}">
+                <img src="${p.image}" alt="${p.name}" class="product-card-img" loading="lazy">
+              </a>
+            </div>
+            <div class="product-info">
+              <span class="product-cat">${p.categoryLabel}</span>
+              <h3 class="product-name">
+                <a href="product-detail.html?id=${p.id}">${p.name}</a>
+              </h3>
+              <div class="product-rating">
+                <span style="font-size: 1.1rem;">★</span>
+                <span style="font-weight: 600;">${p.rating}</span>
+                <span class="product-rating-count">(${p.reviewsCount} 評價)</span>
+              </div>
+              <div class="product-footer">
+                <span class="product-price">${p.price.toLocaleString()}</span>
+                <a href="product-detail.html?id=${p.id}" class="view-detail-btn" aria-label="查看詳情">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        `;
+      });
+
+      relatedGrid.innerHTML = html;
+    }
+
+    function renderError(message) {
+      document.getElementById('loading-view').innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; padding: 2rem 0;">
+          <div style="font-size: 3rem;">🔍</div>
+          <h2 style="font-family: var(--font-heading); color: #fff;">很抱歉</h2>
+          <p style="color: var(--text-muted-dark); max-width: 400px; margin: 0 auto; line-height: 1.6;">${message}</p>
+          <a href="index.html" class="btn btn-primary" style="margin-top: 1rem;">返回首頁</a>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

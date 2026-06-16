@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活力童鞋區 | SoleStyle 鞋履工坊</title>
+  <meta name="description" content="瀏覽 SoleStyle 活力童鞋系列，包含炫彩 LED 發光鞋、防滑防水涼鞋、經典學院皮鞋及輕量魔鬼氈慢跑鞋。守護寶貝足部健康發育。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Global Navigation Header -->
+  <header id="global-header"></header>
+
+  <!-- Category Header -->
+  <section class="hero" style="padding: 4.5rem 1.5rem;">
+    <div class="hero-container" style="grid-template-columns: 1fr; text-align: center; max-width: 800px;">
+      <div class="hero-content" style="align-items: center; gap: 0.75rem;">
+        <span class="hero-tagline">Kids' Collection</span>
+        <h1 class="hero-title" style="font-size: 2.75rem;">活力童鞋系列</h1>
+        <p class="hero-description" style="margin: 0 auto; max-width: 600px;">
+          守護成長的每一步。我們採用環保無毒材質、寬楦防撞設計與超強避震科技，給予寶貝最健康的行走與奔跑環境。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Grid Container -->
+  <main class="container">
+    <div class="product-grid" id="kids-products-grid">
+      <!-- JavaScript will load and render Kids' shoes here -->
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer id="global-footer"></footer>
+
+  <!-- Global Cart Drawer Container -->
+  <div id="global-cart-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render kids' products using the shared utility function in main.js
+      if (typeof renderProductGrid === 'function') {
+        renderProductGrid('kids-products-grid', 'kids');
+      }
+    });
+  </script>
+</body>
+</html>

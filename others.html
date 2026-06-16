@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>配件與其它區 | SoleStyle 鞋履工坊</title>
+  <meta name="description" content="瀏覽 SoleStyle 週邊配件，包含極致保暖室內拖鞋、排汗抗磨運動襪、尊榮皮鞋清潔保養組及全方位戶外越野涼鞋。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Global Navigation Header -->
+  <header id="global-header"></header>
+
+  <!-- Category Header -->
+  <section class="hero" style="padding: 4.5rem 1.5rem;">
+    <div class="hero-container" style="grid-template-columns: 1fr; text-align: center; max-width: 800px;">
+      <div class="hero-content" style="align-items: center; gap: 0.75rem;">
+        <span class="hero-tagline">Accessories & Others</span>
+        <h1 class="hero-title" style="font-size: 2.75rem;">配件與其它系列</h1>
+        <p class="hero-description" style="margin: 0 auto; max-width: 600px;">
+          豐富您的鞋履生活。精選的高質感居家室內鞋、專業吸濕排汗防磨腳襪、頂級鞋類護理工具及水陸兩用涼鞋，讓腳部呵護無微不至。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Grid Container -->
+  <main class="container">
+    <div class="product-grid" id="others-products-grid">
+      <!-- JavaScript will load and render Others category items here -->
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer id="global-footer"></footer>
+
+  <!-- Global Cart Drawer Container -->
+  <div id="global-cart-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render others category items using the shared utility function in main.js
+      if (typeof renderProductGrid === 'function') {
+        renderProductGrid('others-products-grid', 'others');
+      }
+    });
+  </script>
+</body>
+</html>

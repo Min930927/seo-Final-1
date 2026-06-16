@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>丁丁的頂級奢華鞋履工坊</title>
+  <meta name="description" content="SoleStyle 鞋履工坊結合傳統手工工藝與現代科技，為您打造極致舒適且品味出眾的男鞋、女鞋與童鞋。歡迎探索我們的經典與流行款式。">
+   <meta name="keywords" content="手工工藝,現代科技,男鞋,女鞋,童鞋,高級">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Global Navigation Header -->
+  <header id="global-header"></header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-tagline">2026 夏日全新系列上架</span>
+        <h1 class="hero-title">踏出精彩的每一步，專屬您的完美鞋履</h1>
+        <p class="hero-description">
+          融合義大利工匠手藝與現代人體工學，SoleStyle 為每一雙腳量身打造完美的包覆感與支撐力。
+        </p>
+        <div class="hero-actions">
+          <a href="mens.html" class="btn btn-primary">探索男鞋</a>
+          <a href="womens.html" class="btn btn-secondary">瀏覽女鞋</a>
+        </div>
+      </div>
+      <div class="hero-image-container">
+        <div class="hero-image-glow"></div>
+        <img src="assets/images/men_2.png" alt="Featured Runner Shoe" class="hero-img">
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="container">
+    <div class="section-header">
+      <span class="section-subtitle">探索分類</span>
+      <h2 class="section-title">依產品分類選購</h2>
+    </div>
+    <div class="categories-showcase">
+      <!-- Men's -->
+      <a href="mens.html" class="category-card">
+        <div class="category-card-bg" style="background-image: url('assets/images/men_1.png');"></div>
+        <div class="category-card-overlay">
+          <h3 class="category-card-name">紳士男鞋區</h3>
+          <span class="category-card-count">4 款精選產品 &rarr;</span>
+        </div>
+      </a>
+      <!-- Women's -->
+      <a href="womens.html" class="category-card">
+        <div class="category-card-bg" style="background-image: url('assets/images/women_1.png');"></div>
+        <div class="category-card-overlay">
+          <h3 class="category-card-name">優雅女鞋區</h3>
+          <span class="category-card-count">4 款精選產品 &rarr;</span>
+        </div>
+      </a>
+      <!-- Kids' -->
+      <a href="kids.html" class="category-card">
+        <div class="category-card-bg" style="background-image: url('assets/images/kids_1.png');"></div>
+        <div class="category-card-overlay">
+          <h3 class="category-card-name">活力童鞋區</h3>
+          <span class="category-card-count">4 款精選產品 &rarr;</span>
+        </div>
+      </a>
+      <!-- Others -->
+      <a href="others.html" class="category-card">
+        <div class="category-card-bg" style="background-image: url('assets/images/other_4.png');"></div>
+        <div class="category-card-overlay">
+          <h3 class="category-card-name">生活配件區</h3>
+          <span class="category-card-count">4 款精選產品 &rarr;</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="container" style="border-top: 1px solid var(--border-dark); padding-top: 5rem;">
+    <div class="section-header">
+      <span class="section-subtitle">熱銷排行</span>
+      <h2 class="section-title">熱門推薦商品</h2>
+    </div>
+    <div class="product-grid" id="featured-products-grid">
+      <!-- JS dynamically renders this -->
+    </div>
+    <div style="text-align: center; margin-top: 3rem;">
+      <a href="mens.html" class="btn btn-secondary">查看所有產品</a>
+    </div>
+  </section>
+
+  <!-- Brand Philosophy Section -->
+  <section class="container" style="border-top: 1px solid var(--border-dark); padding-top: 5rem; padding-bottom: 5rem;">
+    <div class="about-grid">
+      <div class="about-img-frame">
+        <img src="assets/images/other_3.png" alt="Leather Craftsmanship" style="width: 100%; aspect-ratio: 1.2; object-fit: cover;">
+      </div>
+      <div>
+        <span class="section-subtitle" style="display: block; margin-bottom: 0.5rem;">百年傳承</span>
+        <h2 class="about-title">專注細節，成就非凡的舒適</h2>
+        <p class="about-text">
+          在 SoleStyle，我們深信每一雙鞋子都擁有靈魂。自 1926 年創立以來，我們始終堅持選用最頂級的皮革與天然材料，經過 120 道工序的細密縫製。
+        </p>
+        <p class="about-text">
+          我們不追求快時尚的量產，而是傾聽每位穿著者腳步的聲音，讓舒適成為日常生活的一部分。
+        </p>
+        <a href="about.html" class="btn btn-primary" style="margin-top: 1rem;">了解品牌故事</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Global Footer -->
+  <footer id="global-footer"></footer>
+
+  <!-- Global Cart Drawer Container -->
+  <div id="global-cart-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render the first 4 products on the homepage as "featured"
+      const featuredContainer = document.getElementById('featured-products-grid');
+      if (featuredContainer && typeof products !== 'undefined') {
+        // We take index 0, 4, 8, 12 to show one from each category
+        const featuredList = [products[0], products[4], products[8], products[12]];
+        let html = '';
+        featuredList.forEach(p => {
+          html += `
+            <article class="product-card">
+              <div class="product-badge">熱銷</div>
+              <div class="product-image-wrapper">
+                <a href="product-detail.html?id=${p.id}">
+                  <img src="${p.image}" alt="${p.name}" class="product-card-img" loading="lazy">
+                </a>
+              </div>
+              <div class="product-info">
+                <span class="product-cat">${p.categoryLabel}</span>
+                <h3 class="product-name">
+                  <a href="product-detail.html?id=${p.id}">${p.name}</a>
+                </h3>
+                <div class="product-rating">
+                  <span style="font-size: 1.1rem;">★</span>
+                  <span style="font-weight: 600;">${p.rating}</span>
+                  <span class="product-rating-count">(${p.reviewsCount} 評價)</span>
+                </div>
+                <div class="product-footer">
+                  <span class="product-price">${p.price.toLocaleString()}</span>
+                  <a href="product-detail.html?id=${p.id}" class="view-detail-btn" aria-label="查看詳情">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                </div>
+              </div>
+            </article>
+          `;
+        });
+        featuredContainer.innerHTML = html;
+      }
+    });
+  </script>
+</body>
+</html>

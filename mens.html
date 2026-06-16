@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>時尚男鞋區 | SoleStyle 鞋履工坊</title>
+  <meta name="description" content="瀏覽 SoleStyle 精選男鞋系列，包含經典雕花牛皮鞋、專業慢跑鞋、戶外防水登山靴及休閒帆布懶人鞋。專為商務與休閒打造極致舒適。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Global Navigation Header -->
+  <header id="global-header"></header>
+
+  <!-- Category Header -->
+  <section class="hero" style="padding: 4.5rem 1.5rem;">
+    <div class="hero-container" style="grid-template-columns: 1fr; text-align: center; max-width: 800px;">
+      <div class="hero-content" style="align-items: center; gap: 0.75rem;">
+        <span class="hero-tagline">Men's Collection</span>
+        <h1 class="hero-title" style="font-size: 2.75rem;">時尚男鞋系列</h1>
+        <p class="hero-description" style="margin: 0 auto; max-width: 600px;">
+          專為現代男士設計的鞋履。無論是正式商務、極限運動或是週末休閒，皆能展現您的從容風範與完美品味。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Grid Container -->
+  <main class="container">
+    <div class="product-grid" id="mens-products-grid">
+      <!-- JavaScript will load and render Men's shoes here -->
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer id="global-footer"></footer>
+
+  <!-- Global Cart Drawer Container -->
+  <div id="global-cart-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render men's products using the shared utility function in main.js
+      if (typeof renderProductGrid === 'function') {
+        renderProductGrid('mens-products-grid', 'mens');
+      }
+    });
+  </script>
+</body>
+</html>
